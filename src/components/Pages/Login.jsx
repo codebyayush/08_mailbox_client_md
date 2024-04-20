@@ -57,6 +57,7 @@ const Login = () => {
                   <Form.Control
                     type="text"
                     id="email"
+                    data-testid="emailinput"
                     placeholder="Enter email"
                     ref={emailRef}
                     required
@@ -87,7 +88,7 @@ const Login = () => {
                   />
                 </Form.Group>
 
-                <Button variant="primary" type="submit" className="w-100">
+                <Button variant="primary" datatest_id="signup" type="submit" className="w-100">
                   Sign up
                 </Button>
               </Form>

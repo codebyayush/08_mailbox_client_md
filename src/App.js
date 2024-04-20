@@ -1,11 +1,15 @@
+import { useSelector } from 'react-redux';
 import './App.css';
-import { Button } from 'react-bootstrap';
 import Login from './components/Pages/Login';
+import HomePage from './components/Home/HomePage';
 
 function App() {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
   return (
    <>
-    <Login/>
+    {isLoggedIn && <HomePage/>}
+    {!isLoggedIn && <Login/>}
    </>
   );
 }

@@ -36,6 +36,7 @@ const Login = () => {
           const data = await resp.json();
           console.log('logged in successfully...', data);
           localStorage.setItem('idToken', data.idToken)
+          localStorage.setItem('email', data.email)
           dispatch(authActions.login(data.idToken))
       }else{
           const error = await resp.json();

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useDispatch, useSelector } from "react-redux";
 import { mailActions } from "../../Store";
+import { Card } from "react-bootstrap";
 
 const SentBox = () => {
   const sentMailArray = useSelector((state) => state.mail.sentArr);
@@ -31,17 +32,18 @@ const SentBox = () => {
     fetchSentBox();
   }, []);
 
-  console.log("sent mail array",sentMailArray);
-
   return (
     <div className="w-auto p-2 ml-2 ms-64 mt-16">
-      <ListGroup>
-        {sentMailArray && sentMailArray.map((mails) => (
-          <ListGroup.Item action variant="light">
-            {mails.subject}
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      <Card>
+        <ListGroup>
+          {sentMailArray &&
+            sentMailArray.map((mails) => (
+              <ListGroup.Item action variant="light">
+                {mails.subject}
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
+      </Card>
     </div>
   );
 };

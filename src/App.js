@@ -7,6 +7,7 @@ import Sidebar from "./components/Pages/Sidebar";
 import Inbox from "./components/Pages/Inbox";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SentBox from "./components/Pages/SentBox";
+import ViewEmail from "./components/Pages/ViewEmail";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -19,6 +20,7 @@ function App() {
       <Routes>
           {!isLoggedIn && <Route path="*" element={<Login />} />}
           {isLoggedIn && <Route path="/inbox" element={<Inbox/>} />}
+          {isLoggedIn && <Route path="/inbox/:mailId" element={<ViewEmail/>} />}
           {isLoggedIn && <Route path="/compose" element={<Chatbox/>} />}
           {isLoggedIn && <Route path="/sent" element={<SentBox/>} />}
           {isLoggedIn && <Route path="*" element={<Inbox/>} />}

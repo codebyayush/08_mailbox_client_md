@@ -32,6 +32,7 @@ const Chatbox = () => {
       sentTo: enteredMail,
       subject: enteredSub,
       mailText: enteredText,
+      read: false,
     };
 
     try {

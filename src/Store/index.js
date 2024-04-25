@@ -28,7 +28,7 @@ const authSlice = createSlice({
 });
 
 
-const initialMailState = { inboxArr: [], sentArr: []}
+const initialMailState = { inboxArr: [], sentArr: [], unreadMailCount: 0}
 
 const mailSlice = createSlice({
   name: 'mail',
@@ -36,16 +36,19 @@ const mailSlice = createSlice({
   reducers: {
     inboxHandler(state, action){
       const updatedArr = [...action.payload];
-      return{
-        inboxArr: updatedArr
-      }
+      state.inboxArr = updatedArr;
+
+      state.unreadMailCount = state.inboxArr.reduce((acc, curr) => {
+          if(!curr.read){
+              acc += 1;
+          }
+          return acc;
+      }, 0)
     },
     sentHandler(state, action) {
-        const updatedArr = [...action.payload]
-        return{
-          sentArr: updatedArr
-        }
-    }
+        const updatedSentArr = [...action.payload]
+        state.sentArr = updatedSentArr;
+    },
   }
 })
 

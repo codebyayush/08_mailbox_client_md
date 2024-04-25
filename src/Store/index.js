@@ -27,11 +27,35 @@ const authSlice = createSlice({
   },
 });
 
+
+const initialMailState = { inboxArr: [], sentArr: []}
+
+const mailSlice = createSlice({
+  name: 'mail',
+  initialState: initialMailState,
+  reducers: {
+    inboxHandler(state, action){
+      const updatedArr = [...action.payload];
+      return{
+        inboxArr: updatedArr
+      }
+    },
+    sentHandler(state, action) {
+        const updatedArr = [...action.payload]
+        return{
+          sentArr: updatedArr
+        }
+    }
+  }
+})
+
 export const authActions = authSlice.actions;
+export const mailActions = mailSlice.actions;
 
 const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    mail: mailSlice.reducer,
   },
 });
 

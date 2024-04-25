@@ -21,7 +21,8 @@ const Chatbox = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}.json`;
+    const urlInbox = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
+    const urlSent = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent.json`;
 
     const enteredMail = emailRef.current.value;
     const enteredSub = subRef.current.value;
@@ -34,18 +35,34 @@ const Chatbox = () => {
     };
 
     try {
-      const resp = await fetch(url, {
+      if (userEmail === enteredMail) {
+        const resp = await fetch(urlInbox, {
+          method: "POST",
+          body: JSON.stringify(mailObj),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (resp.ok) {
+          const data = await resp.json();
+          console.log("inbox", data);
+        } else {
+          const error = await resp.json();
+          console.log("ERROR", error);
+        }
+      }
+
+      const sentResp = await fetch(urlSent, {
         method: "POST",
         body: JSON.stringify(mailObj),
-        headers: {'Content-Type': 'application/json'}
+        headers: { "Content-type": "application/json" },
       });
 
-      if (resp.ok) {
-        const data = await resp.json();
-        console.log("email sent", data);
+      if (sentResp.ok) {
+        const data = await sentResp.json();
+        console.log("sent mail", data);
       } else {
-        const error = await resp.json();
-        console.log("Error sending mail", error);
+        const error = await sentResp.json();
+        console.log("ERROR", error);
       }
     } catch (error) {
       console.log(error);
@@ -54,7 +71,6 @@ const Chatbox = () => {
     emailRef.current.value = "";
     subRef.current.value = "";
     setContent("");
-
   };
 
   const deleteHandler = () => {
@@ -65,13 +81,13 @@ const Chatbox = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-content-center mt-5">
+      <div className="w-auto p-2 ml-2 ms-64 mt-16">
         <Form
-          className="mt-4 w-50 border border-secondary p-3 rounded-3"
+          className="mt-2 border border-secondary p-3 rounded-3"
           onSubmit={submitHandler}
         >
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label htmlFor="email">Email Address</Form.Label>
+            <Form.Label htmlFor="email">To:</Form.Label>
             <Form.Control
               type="email"
               placeholder="name@example.com"
@@ -81,7 +97,7 @@ const Chatbox = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="subject">Subject</Form.Label>
+            <Form.Label htmlFor="subject">Subject:</Form.Label>
             <Form.Control
               type="text"
               id="subject"
@@ -90,10 +106,13 @@ const Chatbox = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" htmlFor='editor' controlId="exampleForm.ControlTextarea1">
-            {/* <Form.Control as="textarea" placeholder="Enter mail" rows={8} /> */}
+          <Form.Group
+            className="mb-3"
+            htmlFor="editor"
+            controlId="exampleForm.ControlTextarea1"
+          >
             <JoditEditor
-              id='editor'
+              id="editor"
               ref={editor}
               value={content}
               tabIndex={2}

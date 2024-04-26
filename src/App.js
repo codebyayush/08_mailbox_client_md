@@ -10,56 +10,24 @@ import SentBox from "./components/Pages/SentBox";
 import ViewEmail from "./components/Pages/ViewEmail";
 import { mailActions } from "./Store";
 import { useEffect } from "react";
+import useFetchInbox from "./hooks/useFetchInbox";
+import useFetchSentbox from "./hooks/useFetchSentbox";
 
 
 function App() {
+  
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const inbox = useSelector((state) => state.mail.inboxArr);
-  const dispatch = useDispatch();
+  
   const email = localStorage.getItem("email");
-  const userMail = email.replace(/[@.]/g, "");
+  let userMail = "";
+  if(email){
+    userMail = email.replace(/[@.]/g, "");
+  }
+  const inboxURL = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
+  const sentBoxURL = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent.json`;
 
-  //fetchInbox & SentBox on app mount
-  useEffect(() => {
-    const fetchInbox = async () => {
-      const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
-      try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        console.log("inbox ", data);
-        let inboxArr = [];
-
-        for (let [key, value] of Object.entries(data)) {
-          value.key = key;
-          inboxArr.push(value);
-        }
-
-        dispatch(mailActions.inboxHandler(inboxArr));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const fetchSentBox = async () => {
-      const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent.json`;
-      try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        console.log("sentArr ", data);
-        let newArr = [];
-
-        for (let [key, value] of Object.entries(data)) {
-          value.key = key;
-          newArr.push(value);
-        }
-        dispatch(mailActions.sentHandler(newArr));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchInbox();
-    fetchSentBox();
-  }, []);
+  useFetchInbox(inboxURL);
+  useFetchSentbox(sentBoxURL);
 
   return (
     <>

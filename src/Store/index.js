@@ -19,6 +19,7 @@ const authSlice = createSlice({
     logout(state) {
         state.isLoggedIn = false;
         localStorage.removeItem('idToken');
+        // localStorage.removeItem('email');
         state.token = null;
     },
     toggle(state) {

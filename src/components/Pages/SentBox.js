@@ -5,7 +5,7 @@ import { mailActions } from "../../Store";
 import { Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
-
+import useFetchSentbox from "../../hooks/useFetchSentbox";
 
 
 const SentBox = () => {
@@ -15,26 +15,9 @@ const SentBox = () => {
   const email = localStorage.getItem("email");
   const userMail = email.replace(/[@.]/g, "");
 
-  useEffect(() => {
-    const fetchSentBox = async () => {
-      const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent.json`;
-      try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        console.log("sentArr ", data);
-        let newArr = [];
-
-        for (let [key, value] of Object.entries(data)) {
-          value.key = key;
-          newArr.push(value);
-        }
-        dispatch(mailActions.sentHandler(newArr));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchSentBox();
-  }, []);
+  const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent.json`;
+  
+  useFetchSentbox(url);
 
   async function deleteHandler(id) {
     const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/sent/${id}.json`;

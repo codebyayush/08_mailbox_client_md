@@ -5,6 +5,7 @@ import { mailActions } from "../../Store";
 import { Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import useFetchInbox from "../../hooks/useFetchInbox";
 
 const Inbox = () => {
   const inbox = useSelector((state) => state.mail.inboxArr);
@@ -12,29 +13,11 @@ const Inbox = () => {
   const email = localStorage.getItem("email");
   const userMail = email.replace(/[@.]/g, "");
 
-  useEffect(() => {
-    const fetchInbox = async () => {
-      const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
-      try {
-        const resp = await fetch(url);
-        const data = await resp.json();
-        console.log("inbox ", data);
-        let inboxArr = [];
+  const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
 
-        for (let [key, value] of Object.entries(data)) {
-          value.key = key;
-          inboxArr.push(value);
-        }
-
-        dispatch(mailActions.inboxHandler(inboxArr));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const intervalId = setInterval(fetchInbox, 2000); // set interval to call fetchInbox every 2 seconds
-
-    return () => clearInterval(intervalId);
-  }, []);
+  //using useFetchInbox to get the data from firebase 
+  //and then update the inboxArr inside redux store.
+  useFetchInbox(url);
 
   const handleMailClick = async (mail) => {
     const resp = await fetch(

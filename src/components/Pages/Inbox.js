@@ -31,7 +31,9 @@ const Inbox = () => {
         console.log(error);
       }
     };
-    fetchInbox();
+    const intervalId = setInterval(fetchInbox, 2000); // set interval to call fetchInbox every 2 seconds
+
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleMailClick = async (mail) => {

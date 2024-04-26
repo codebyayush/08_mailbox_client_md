@@ -1,7 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, FormGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import JoditEditor from "jodit-react";
+import { mailActions } from "../../Store";
+import { useDispatch } from "react-redux";
+
 
 const Chatbox = () => {
   const emailRef = useRef();
@@ -17,6 +20,8 @@ const Chatbox = () => {
   const handleEditorChange = (newContent) => {
     setContent(newContent);
   };
+
+  const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -68,6 +73,26 @@ const Chatbox = () => {
     } catch (error) {
       console.log(error);
     }
+
+    // const fetchInbox = async () => {
+    //   const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
+    //   try {
+    //     const resp = await fetch(url);
+    //     const data = await resp.json();
+    //     console.log("inbox ", data);
+    //     let inboxArr = [];
+
+    //     for (let [key, value] of Object.entries(data)) {
+    //       value.key = key;
+    //       inboxArr.push(value);
+    //     }
+
+    //     dispatch(mailActions.inboxHandler(inboxArr));
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // fetchInbox();
 
     emailRef.current.value = "";
     subRef.current.value = "";

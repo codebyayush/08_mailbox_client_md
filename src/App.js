@@ -25,6 +25,7 @@ function App() {
           )}
           {isLoggedIn && <Route path="/compose" element={<Chatbox />} />}
           {isLoggedIn && <Route path="/sent" element={<SentBox />} />}
+          {isLoggedIn && <Route path="/sent/:mailId" element={<ViewEmail/>}/>}
           {isLoggedIn && <Route path="*" element={<Inbox />} />}
         </Routes>
       </BrowserRouter>

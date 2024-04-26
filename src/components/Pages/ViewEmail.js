@@ -2,17 +2,25 @@ import React from "react";
 import { Card } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const ViewEmail = () => {
+  const location = useLocation();
   const sentMails = useSelector((state) => state.mail.sentArr);
   const inboxMails = useSelector((state) => state.mail.inboxArr);
   const { mailId } = useParams();
-  const clickedMail = inboxMails.find((mail) => mail.key === mailId);
-  const mailText = clickedMail.mailText;
-  console.log(clickedMail);
-  console.log(inboxMails);
 
+   // Determine if the mail is from 'sent' or 'inbox' based on the URL;
+   //we get the url path using useLocation();
+  const mailSource = location.pathname.includes('/sent/') ? sentMails : inboxMails;
+  const clickedMail = mailSource.find((mail) => mail.key === mailId);
+  
+  if(!clickedMail){
+    return <div>Mail not found.</div>
+  }
+  
+  const mailText = clickedMail.mailText;
+  
   return (
     <>
       <div className="w-auto p-2 ml-2 ms-64 mt-16">

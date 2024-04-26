@@ -68,7 +68,7 @@ const Inbox = () => {
     if (resp.ok) {
       const data = await resp.json();
       console.log("Mail Deleted", data);
-      dispatch(mailActions.deleteHandler(id))
+      dispatch(mailActions.inboxDeleteHandler(id))
     } else {
       const error = await resp.json();
       console.log("ERROR DELTING", error);

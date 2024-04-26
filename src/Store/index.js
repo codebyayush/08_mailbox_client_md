@@ -49,6 +49,10 @@ const mailSlice = createSlice({
         const updatedSentArr = [...action.payload]
         state.sentArr = updatedSentArr;
     },
+    deleteHandler(state, action){
+      state.inboxArr = state.inboxArr.filter((mails) => mails.key !== action.payload);
+      
+    }
   }
 })
 

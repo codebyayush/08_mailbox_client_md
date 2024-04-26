@@ -14,18 +14,20 @@ function App() {
 
   return (
     <>
-    <BrowserRouter>
-      {isLoggedIn && <NavPage />}
-      {isLoggedIn && <Sidebar/>}
-      <Routes>
+      <BrowserRouter>
+        {isLoggedIn && <NavPage />}
+        {isLoggedIn && <Sidebar />}
+        <Routes>
           {!isLoggedIn && <Route path="*" element={<Login />} />}
-          {isLoggedIn && <Route path="/inbox" element={<Inbox/>} />}
-          {isLoggedIn && <Route path="/inbox/:mailId" element={<ViewEmail/>} />}
-          {isLoggedIn && <Route path="/compose" element={<Chatbox/>} />}
-          {isLoggedIn && <Route path="/sent" element={<SentBox/>} />}
-          {isLoggedIn && <Route path="*" element={<Inbox/>} />}
-      </Routes>
-    </BrowserRouter>
+          {isLoggedIn && <Route path="/inbox" element={<Inbox />} />}
+          {isLoggedIn && (
+            <Route path="/inbox/:mailId" element={<ViewEmail />} />
+          )}
+          {isLoggedIn && <Route path="/compose" element={<Chatbox />} />}
+          {isLoggedIn && <Route path="/sent" element={<SentBox />} />}
+          {isLoggedIn && <Route path="*" element={<Inbox />} />}
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

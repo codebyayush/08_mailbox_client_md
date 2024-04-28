@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../Store";
+import { authActions } from "../../store";
 
 const Login = () => {
   const dispatch = useDispatch();

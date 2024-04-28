@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useDispatch, useSelector } from "react-redux";
-import { mailActions } from "../../Store";
+import { mailActions } from "../../store";
 import { Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import useFetchSentbox from "../../hooks/useFetchSentbox";
-
 
 const SentBox = () => {
   const sentMailArray = useSelector((state) => state.mail.sentArr);

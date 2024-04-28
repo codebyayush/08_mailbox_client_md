@@ -1,18 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "./App.css";
-import Login from "./components/Pages/Login";
+import Login from "./components/Authentication/Login";
 import NavPage from "./components/Navbar/Navbar";
-import Chatbox from "./components/Pages/Chatbox";
-import Sidebar from "./components/Pages/Sidebar";
-import Inbox from "./components/Pages/Inbox";
+import Chatbox from "./components/Compose/Chatbox";
+import Sidebar from "./components/Navbar/Sidebar";
+import Inbox from "./components/Inbox/Inbox";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SentBox from "./components/Pages/SentBox";
-import ViewEmail from "./components/Pages/ViewEmail";
-import { mailActions } from "./Store";
-import { useEffect } from "react";
+import SentBox from "./components/Sentbox/SentBox";
+import ViewEmail from "./components/Viewmail/ViewEmail";
 import useFetchInbox from "./hooks/useFetchInbox";
 import useFetchSentbox from "./hooks/useFetchSentbox";
-
 
 function App() {
   

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { authActions } from "../../Store";
+import { authActions } from "../../store";
 import { useDispatch } from "react-redux";
 
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, FormGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import JoditEditor from "jodit-react";
-import { mailActions } from "../../Store";
+import { mailActions } from "../../store";
 import { useDispatch } from "react-redux";
 
 

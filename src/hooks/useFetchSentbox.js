@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { mailActions } from "../Store";
+import { mailActions } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 
 const useFetchSentbox = (url) => {

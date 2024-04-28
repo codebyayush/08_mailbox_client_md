@@ -7,6 +7,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const toggleLogin = useSelector(state => state.auth.loginToggle);
 
+  const bgUrl = 'https://source.unsplash.com/7brhZmwXn08';
+  //7E5kq_sW0Ew
+  //7brhZmwXn08
   const emailRef = useRef();
   const passRef = useRef();
   const confpassRef = useRef();
@@ -82,70 +85,72 @@ const Login = () => {
 
   return (
     <>
-      <Container className="vh-100 d-flex flex-column justify-content-center align-items-center">
-        <Container className="d-flex justify-content-center align-items-center">
-          <Card className="w-25">
-            <Card.Body>
-              <Form onSubmit={submitHandler}>
-                <h2 className="text-center">
-                  {!toggleLogin ? "Sign Up" : "Login"}
-                </h2>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="email">Email</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="email"
-                    placeholder="Enter email"
-                    ref={emailRef}
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="password">Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    ref={passRef}
-                    required
-                  />
-                </Form.Group>
-                {!toggleLogin && (
+    <div style={{backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover'}}>
+        <Container className="vh-100 d-flex flex-column justify-content-center align-items-center">
+          <Container className="d-flex justify-content-center align-items-center">
+            <Card className="w-25">
+              <Card.Body>
+                <Form onSubmit={submitHandler}>
+                  <h2 className="text-center">
+                    {!toggleLogin ? "Sign Up" : "Login"}
+                  </h2>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="confirmpassword">
-                      Confirm Password
-                    </Form.Label>
+                    <Form.Label htmlFor="email">Email</Form.Label>
                     <Form.Control
-                      type="password"
-                      id="confirmpassword"
-                      placeholder="Confirm password"
-                      ref={confpassRef}
+                      type="text"
+                      id="email"
+                      placeholder="Enter email"
+                      ref={emailRef}
                       required
                     />
                   </Form.Group>
-                )}
 
-                <Button variant="primary" type="submit" className="w-100">
-                  {!toggleLogin ? "Sign up" : "Login"}
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="password">Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      id="password"
+                      placeholder="Enter password"
+                      ref={passRef}
+                      required
+                    />
+                  </Form.Group>
+                  {!toggleLogin && (
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="confirmpassword">
+                        Confirm Password
+                      </Form.Label>
+                      <Form.Control
+                        type="password"
+                        id="confirmpassword"
+                        placeholder="Confirm password"
+                        ref={confpassRef}
+                        required
+                      />
+                    </Form.Group>
+                  )}
+
+                  <Button variant="primary" type="submit" className="w-100">
+                    {!toggleLogin ? "Sign up" : "Login"}
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Container>
+          <br />
+          <Container className="d-flex justify-content-center align-items-center">
+            <Button
+              variant="secondary"
+              className="w-25"
+              onClick={() => dispatch(authActions.toggle())}
+            >
+              {!toggleLogin
+                ? "Have an account? Login"
+                : "New User? Create an account"}
+            </Button>
+          </Container>
         </Container>
-        <br />
-        <Container className="d-flex justify-content-center align-items-center">
-          <Button
-            variant="secondary"
-            className="w-25"
-            onClick={() => dispatch(authActions.toggle())}
-          >
-            {!toggleLogin
-              ? "Have an account? Login"
-              : "New User? Create an account"}
-          </Button>
-        </Container>
-      </Container>
+    </div>
     </>
   );
 };

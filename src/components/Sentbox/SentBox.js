@@ -54,6 +54,9 @@ const SentBox = () => {
                 </div>
               </ListGroup.Item>
             ))}
+            {sentMailArray.length === 0 && <>
+              <div className="-ms-2 mr-1 font-medium text-xl text-center">Sentbox Empty</div>
+            </>}
         </ListGroup>
       </Card>
     </div>

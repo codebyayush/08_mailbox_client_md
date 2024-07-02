@@ -7,9 +7,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const toggleLogin = useSelector(state => state.auth.loginToggle);
 
-  const bgUrl = 'https://source.unsplash.com/7brhZmwXn08';
-  //7E5kq_sW0Ew
-  //7brhZmwXn08
+  const bgUrl = 'https://plus.unsplash.com/premium_photo-1682309491551-08c99167897b?q=80&w=1934&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+
   const emailRef = useRef();
   const passRef = useRef();
   const confpassRef = useRef();
@@ -66,7 +65,7 @@ const Login = () => {
             headers: { "Content-Type": "application/json" },
           }
         );
-  
+
         if (resp.ok) {
           const data = await resp.json();
           console.log("User has successfully signed up", data);

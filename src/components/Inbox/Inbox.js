@@ -92,6 +92,9 @@ const Inbox = () => {
                   </div>
                 </ListGroup.Item>
               ))}
+            {inbox.length === 0 && <>
+              <div className="-ms-2 mr-1 font-medium text-xl text-center">Inbox Empty</div>
+            </>}
           </ListGroup>
         </Card>
       </div>

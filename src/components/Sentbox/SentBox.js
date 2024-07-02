@@ -54,9 +54,20 @@ const SentBox = () => {
                 </div>
               </ListGroup.Item>
             ))}
-            {sentMailArray.length === 0 && <>
-              <div className="-ms-2 mr-1 font-medium text-xl text-center">Sentbox Empty</div>
-            </>}
+            {sentMailArray.length === 0 && (
+              <>
+                <div className="-ms-2 mr-1 font-medium text-xl text-center">
+                  Sentbox Empty
+                </div>
+                <div className="flex justify-center ">
+                  <NavLink to={`/compose`}>
+                    <button className="border border-gray-600 p-3 mt-4 rounded-xl font-medium bg-purple-200">
+                      Compose Email
+                    </button>
+                  </NavLink>
+                </div>
+              </>
+            )}
         </ListGroup>
       </Card>
     </div>

@@ -15,7 +15,7 @@ const Inbox = () => {
 
   const url = `https://mailbox-client-md-default-rtdb.firebaseio.com/chatbox/${userMail}/inbox.json`;
 
-  //using useFetchInbox to get the data from firebase 
+  //using useFetchInbox to get the data from firebase
   //and then update the inboxArr inside redux store.
   useFetchInbox(url);
 
@@ -53,7 +53,7 @@ const Inbox = () => {
     if (resp.ok) {
       const data = await resp.json();
       console.log("Mail Deleted", data);
-      dispatch(mailActions.inboxDeleteHandler(id))
+      dispatch(mailActions.inboxDeleteHandler(id));
     } else {
       const error = await resp.json();
       console.log("ERROR DELTING", error);
@@ -74,15 +74,13 @@ const Inbox = () => {
                 >
                   <div className="flex justify-between">
                     <div className="flex">
-                        <div className="-ms-2 mr-1">
-                            {mails.read ? "" : "●"}
-                        </div>
-                        <NavLink
+                      <div className="-ms-2 mr-1">{mails.read ? "" : "●"}</div>
+                      <NavLink
                         to={`/inbox/${mails.key}`}
                         onClick={() => handleMailClick(mails)}
-                        >
-                            {mails.subject}
-                        </NavLink>
+                      >
+                        {mails.subject}
+                      </NavLink>
                     </div>
                     <button onClick={() => deleteHandler(mails.key)}>
                       <div className="mr-4">
@@ -92,9 +90,20 @@ const Inbox = () => {
                   </div>
                 </ListGroup.Item>
               ))}
-            {inbox.length === 0 && <>
-              <div className="-ms-2 mr-1 font-medium text-xl text-center">Inbox Empty</div>
-            </>}
+            {inbox.length === 0 && (
+              <>
+                <div className="-ms-2 mr-1 font-medium text-xl text-center">
+                  Inbox Empty
+                </div>
+                <div className="flex justify-center ">
+                  <NavLink to={`/compose`}>
+                    <button className="border border-gray-600 p-3 mt-4 rounded-xl font-medium bg-purple-200">
+                      Compose Email
+                    </button>
+                  </NavLink>
+                </div>
+              </>
+            )}
           </ListGroup>
         </Card>
       </div>

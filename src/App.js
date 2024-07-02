@@ -40,7 +40,7 @@ function App() {
           {isLoggedIn && <Route path="/compose" element={<Chatbox />} />}
           {isLoggedIn && <Route path="/sent" element={<SentBox />} />}
           {isLoggedIn && <Route path="/sent/:mailId" element={<ViewEmail/>}/>}
-          {isLoggedIn && <Route path="*" element={<Inbox />} />}
+          {isLoggedIn && <Route path="*" element={<Chatbox />} />}
         </Routes>
       </BrowserRouter>
     </>
